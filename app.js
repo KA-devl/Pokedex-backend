@@ -26,7 +26,7 @@ const sequelize = new Sequelize(
   }
 
 )
-//test
+//testing node modules push
 //Testing database connection
 sequelize.authenticate()
 .then(_=> console.log('La connexion a la database a bien ete etablie'))
