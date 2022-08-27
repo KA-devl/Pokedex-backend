@@ -4,7 +4,8 @@ const favicon = require ('serve-favicon')//middleware 2
 const { success } = require ('./helper') //sans avoir a appeler tout le helper.js
 const { getUniqueId } = require ('./helper')
 const bodyParser = require('body-parser')
-const {Sequelize} = require('sequelize')
+const {Sequelize, DataTypes} = require('sequelize')
+const PokemonModel = require('./src/models/pokemon')
 
 let pokemons = require('./mock-pokemon')
 
@@ -26,10 +27,26 @@ const sequelize = new Sequelize(
   }
 
 )
-//Testing database connection
+//Testing & connecting to database
 sequelize.authenticate()
 .then(_=> console.log('La connexion a la database a bien ete etablie'))
 .catch(error => console.error(`Impossible de se connecter a la data base ${error}`))
+
+//Setting pokemon model
+const Pokemon = PokemonModel(sequelize, DataTypes)
+
+sequelize.sync({force:true})
+.then(_=> {
+  console.log('La base de donnee "Pokedex a bien ete synchro')
+
+  Pokemon.create({
+    name: "Bulbizarre",
+    hp: 25,
+    cp: 5,
+    picture: "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png",
+    types: ["Plante", "Poison"].join() //use join to fix array problem
+  }).then(bulbizzare => console.log(bulbizzare.toJSON()))
+})
 
 //middleware use
 app
