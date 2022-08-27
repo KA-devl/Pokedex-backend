@@ -35,17 +35,23 @@ sequelize.authenticate()
 //Setting pokemon model
 const Pokemon = PokemonModel(sequelize, DataTypes)
 
+//Adding pokemons to db
 sequelize.sync({force:true})
 .then(_=> {
   console.log('La base de donnee "Pokedex a bien ete synchro')
 
-  Pokemon.create({
-    name: "Bulbizarre",
-    hp: 25,
-    cp: 5,
-    picture: "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png",
-    types: ["Plante", "Poison"].join() //use join to fix array problem
-  }).then(bulbizzare => console.log(bulbizzare.toJSON()))
+  pokemons.map(pokemon => {
+    Pokemon.create({
+      name: pokemon.name,
+      hp: pokemon.hp,
+      cp: pokemon.cp,
+      picture: pokemon.picture,
+      types: pokemon.types.join() //use join to fix array problem
+    }).then(pokemon => console.log(pokemon.toJSON()))
+
+  })
+
+  
 })
 
 //middleware use
