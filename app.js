@@ -1,108 +1,21 @@
 const express = require ('express')
 const morgan = require ('morgan') //middleware
 const favicon = require ('serve-favicon')//middleware 2
-const { success } = require ('./helper') //sans avoir a appeler tout le helper.js
-const { getUniqueId } = require ('./helper')
 const bodyParser = require('body-parser')
-const {Sequelize, DataTypes} = require('sequelize')
-const PokemonModel = require('./src/models/pokemon')
-
-let pokemons = require('./mock-pokemon')
+const sequelize = require ('./src/db/sequelize')
 
 const app = express()
 const port = 3000
 
-//Configurer database
-const sequelize = new Sequelize(
-  'pokedex',
-  'root',
-  '',
-  {
-    host: 'localhost',
-    dialect : 'mariadb',
-    dialectOptions : {
-      timezone: 'Etc/GMT-2'
-    },
-    logging : false
-  }
 
-)
-//Testing & connecting to database
-sequelize.authenticate()
-.then(_=> console.log('La connexion a la database a bien ete etablie'))
-.catch(error => console.error(`Impossible de se connecter a la data base ${error}`))
-
-//Setting pokemon model
-const Pokemon = PokemonModel(sequelize, DataTypes)
-
-//Adding pokemons to db
-sequelize.sync({force:true})
-.then(_=> {
-  console.log('La base de donnee "Pokedex a bien ete synchro')
-
-  pokemons.map(pokemon => {
-    Pokemon.create({
-      name: pokemon.name,
-      hp: pokemon.hp,
-      cp: pokemon.cp,
-      picture: pokemon.picture,
-      types: pokemon.types.join() //use join to fix array problem
-    }).then(pokemon => console.log(pokemon.toJSON()))
-
-  })
-
-  
-})
-
-//middleware use
+//Middleware use
 app
 .use(favicon(__dirname +'/favicon.ico'))
 .use(morgan('dev'))
 .use(bodyParser.json())
 
-app.get('/', (req, res) => res.send('Hello, express 2'))
+//Initialize db
+sequelize.initDb()
 
-
-app.get('/api/pokemons/:id', (req,res)=> {
-  const id = parseInt(req.params.id)
-  const pokemon = pokemons.find(pokemon => pokemon.id === id)
-  const message = 'Un pokemon a bien ete trouver'
-res.json(success(message,pokemon)) 
-})
-
-
-app.get('/api/pokemons', (req,res)=>{
-const message = 'La liste des pokemons a ete retrouver avec success'
-res.json(success(message, pokemons))
-})
-
-
-app.post('/api/pokemons', (req,res) => {
-  const id = getUniqueId(pokemons)
-  const pokemonCreated = {...req.body, ...{id:id, created : new Date()}}
-  pokemons.push(pokemonCreated)
-  const message = `Le pokemon ${pokemonCreated.name} a bien ete creer`
-  res.json(success(message, pokemonCreated))
-})
-
-
-app.put('/api/pokemons/:id', (req,res)=>{
-  const id = parseInt(req.params.id)
-  const pokemonUpdated = {...req.body, id: id}
-  pokemons = pokemons.map(pokemon =>{
-    return pokemon.id === id ? pokemonUpdated : pokemon
-  })
-  const message = `Le pokemon ${pokemonUpdated.name} a bien ete modifier`
-  res.json(success(message, pokemonUpdated))
-
-})
-
-app.delete('/api/pokemons/:id', (req,res)=>{
-  const id = parseInt(req.params.id)
-  const pokemonDeleted = pokemons.find(pokemon => pokemon.id === id)
-  pokemons = pokemons.filter(pokemon => pokemon.id !== id ) 
-  const message = `Le pokemon ${pokemonDeleted.name} a ete supprimer`
-  res.json(success(message, pokemonDeleted))
-})
 
 app.listen(port, () => console.log(`Notre application node est demarrer sur : http://localhost:${port}`))
