@@ -17,5 +17,12 @@ app
 //Initialize db
 sequelize.initDb()
 
+//Routes
+require('./src/routes/findAllPokemons')(app)
+require('./src/routes/findPokemonByPk')(app)
+require('./src/routes/createPokemon')(app)
+require('./src/routes/updatePokemon')(app)
+
+
 
 app.listen(port, () => console.log(`Notre application node est demarrer sur : http://localhost:${port}`))

@@ -23,7 +23,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     types: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      //Fix createPokemon sequelize problem : Getter : database -> rest API
+      get() {
+        return this.getDataValue('types').split(',')
+      }, //Setter : Rest api -> db
+      set(types){
+        this.setDataValue('types', types.join())
+      }
     }
   }, {
     timestamps: true,
