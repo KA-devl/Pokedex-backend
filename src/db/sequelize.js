@@ -18,6 +18,8 @@ const sequelize = new Sequelize('pokedex', 'root', '', {
 
   //Setting pokemon model
 const Pokemon = PokemonModel(sequelize, DataTypes)
+console.log(pokemons)
+
   
 //Adding pokemons to db
 const initDb = () => {

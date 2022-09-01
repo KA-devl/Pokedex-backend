@@ -1,3 +1,4 @@
+const { ValidationError } = require('sequelize')
 const { Pokemon } = require('../db/sequelize')
 
 module.exports = (app) => {
@@ -16,12 +17,11 @@ module.exports = (app) => {
         const message = `Le pokemon ${pokemon.name} a bien ete modifier`
         res.json({message, data: pokemon})
       })
-      .catch(error => {
-        const message = 'Le pokemon na pas pu etre modifier.'
-        res.status(500).json({message, data: error})
-      })  
     })
     .catch(error => {
+      if(error instanceof ValidationError){
+        res.status(400).json({message: error.message, data:error})
+      }
       const message = 'Le pokemon na pas pu etre modifier.'
       res.status(500).json({message, data: error})
     })

@@ -4,6 +4,7 @@ const favicon = require ('serve-favicon')//middleware 2
 const bodyParser = require('body-parser')
 const sequelize = require ('./src/db/sequelize')
 
+
 const app = express()
 const port = 3000
 
@@ -16,6 +17,7 @@ app
 
 //Initialize db
 sequelize.initDb()
+
 
 //Routes
 require('./src/routes/findAllPokemons')(app)
