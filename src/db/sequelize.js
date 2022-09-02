@@ -2,6 +2,7 @@ const { Sequelize, DataTypes } = require('sequelize')
 const PokemonModel = require('../models/pokemon')
 const UserModel = require('../models/user')
 const pokemons = require('./mock-pokemon')
+const bcrypt = require('bcrypt')
 
   
 //Configurer database
@@ -34,10 +35,10 @@ const initDb = () => {
         types: pokemon.types
       }).then(pokemon => console.log(pokemon.toJSON()))
     })
-    User.create({
-      username : 'pikachu',
-      password: 'pikachu',
-    }).then(user => console.log(user.toJSON()))
+    bcrypt.hash('pikachu', 10) //Args : (password, hashTime)
+    .then(hash =>User.create({username : 'pikachu', password: hash})) //Recuperate hashed password and push it to db
+    .then(user => console.log(user.toJSON()))
+
     console.log("DATABASE HAVE BEEN INTIALIZED WITH SUCCESS")
   })
   
