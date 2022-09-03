@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const privateKey = require('../auth/private_key')
+//Verification of JWT from clients (Middleware)
   
 module.exports = (req, res, next) => {
   const authorizationHeader = req.headers.authorization
@@ -9,13 +10,14 @@ module.exports = (req, res, next) => {
     return res.status(401).json({ message })
   }
     
-    const token = authorizationHeader.split(' ')[1]
-    const decodedToken = jwt.verify(token, privateKey, (error, decodedToken) => {
+    const token = authorizationHeader.split(' ')[1] //example of Header we receive ===>  Bear J89745UGEFIUA (We need to remove bearer and return the value after, Hence why we use .split(' '))
+
+    const decodedToken = jwt.verify(token, privateKey, (error, decodedToken) => { //Verify token
     if(error) {
       const message = `L'utilisateur n'est pas autorisé à accèder à cette ressource.`
       return res.status(401).json({ message, data: error })
     }
-  
+      //Verify if token belong to another user
     const userId = decodedToken.userId
     if (req.body.userId && req.body.userId !== userId) {
       const message = `L'identifiant de l'utilisateur est invalide.`
