@@ -34,7 +34,7 @@ const initDb = () => {
         picture: pokemon.picture,
         types: pokemon.types
       }).then(pokemon => console.log(pokemon.toJSON()))
-    })
+    })//Password hashing
     bcrypt.hash('pikachu', 10) //Args : (password, hashTime)
     .then(hash =>User.create({username : 'pikachu', password: hash})) //Recuperate hashed password and push it to db
     .then(user => console.log(user.toJSON()))

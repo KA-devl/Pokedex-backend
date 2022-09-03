@@ -14,7 +14,7 @@ module.exports = (app) => {
       bcrypt.compare(req.body.password, user.password).then(isPasswordValid => { // compare the password of the request username to the password of the current user found
         if(!isPasswordValid) {
           const message = `Le mot de passe est incorrect`;
-          return res.json.status(401)({ message})
+          return res.status(401).json({ message})
         }
         //JWT
         const token = jwt.sign({userId: user.id}, privateKey, {expiresIn: '24h'}) //Create token
