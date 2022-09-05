@@ -7,7 +7,7 @@ const sequelize = require ('./src/db/sequelize')
 
 
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 
 //Middleware use
@@ -18,6 +18,10 @@ app
 
 //Initialize db
 sequelize.initDb()
+
+app.get('/', (req,res)=>{
+  res.json('HELLO, TEST!')
+})
 
 
 //Routes
