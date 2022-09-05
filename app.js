@@ -2,6 +2,7 @@ const express = require ('express')
 const morgan = require ('morgan') //middleware
 const favicon = require ('serve-favicon')//middleware 2
 const bodyParser = require('body-parser')
+const cors = require('cors')
 const sequelize = require ('./src/db/sequelize')
 
 
@@ -15,6 +16,7 @@ app
 .use(favicon(__dirname +'/favicon.ico'))
 .use(morgan('dev'))
 .use(bodyParser.json())
+.use(cors())
 
 //Initialize db
 sequelize.initDb()
