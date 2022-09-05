@@ -40,4 +40,4 @@ app.use(({res}) => {
 
 
 
-app.listen(port, () => console.log(`Notre application node est demarrer sur : http://localhost:${port}`))
+app.listen(port)
