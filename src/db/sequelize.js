@@ -16,7 +16,7 @@ if(process.env.NODE_ENV === 'production') {
     logging: true
   }) */
   sequelize = new Sequelize('pokedex', 'pokedexadmin', 'Pokedex1999', {
-    host: 'tcp:pokedextest1.database.windows.net',
+    host: 'pokedextest1.database.windows.net',
     dialect: 'mysql',
     dialectOptions: {
       timezone: 'Etc/GMT-2',
