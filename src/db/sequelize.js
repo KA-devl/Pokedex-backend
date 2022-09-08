@@ -7,9 +7,17 @@ const bcrypt = require('bcrypt')
   
 //Configurer database
 if(process.env.NODE_ENV === 'production') {
-  sequelize = new Sequelize('kk8u5y871hfoaw9y', 't09tvm6qofrtvc7h', 'ryujse9ftf40wpqn', {
+ /*  sequelize = new Sequelize('kk8u5y871hfoaw9y', 't09tvm6qofrtvc7h', 'ryujse9ftf40wpqn', {
     host: 'klbcedmmqp7w17ik.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
     dialect: 'mariadb',
+    dialectOptions: {
+      timezone: 'Etc/GMT-2',
+    },
+    logging: true
+  }) */
+  sequelize = new Sequelize('pokedex', 'pokedexadmin', 'Pokedex1999', {
+    host: 'tcp:pokedextest1.database.windows.net',
+    dialect: 'mysql',
     dialectOptions: {
       timezone: 'Etc/GMT-2',
     },
