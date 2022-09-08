@@ -18,8 +18,7 @@ const bcrypt = require('bcrypt')
   sequelize = new Sequelize('pokedextest', 'pokedexadmin', 'Pokedex1999', {
     host: 'pokedextest1.database.windows.net',
     dialect: 'mysql',
-    logging: true,
-    port:1433
+    logging: true
   })
 }else {
   sequelize = new Sequelize('pokedex', 'root', '', {
