@@ -17,7 +17,8 @@
     "mariadb": "^3.0.1",
     "mysql2": "^2.3.3",
     "sequelize": "^6.21.4",
-    "serve-favicon": "^2.5.0"
+    "serve-favicon": "^2.5.0",
+    "tedious": "^15.1.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.19"
