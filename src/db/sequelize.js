@@ -44,9 +44,9 @@ const Pokemon = PokemonModel(sequelize, DataTypes)
 const User = UserModel(sequelize, DataTypes)
   
 //Adding mock pokemons to db
-const initDb = () => {
-  return sequelize.sync().then(_ => {
-    if(process.env.NODE_ENV === 'developement'){
+/* const initDb = () => {
+  return sequelize.sync({force:true}).then(_ => {
+    
       pokemons.map(pokemon => {
         Pokemon.create({
           name: pokemon.name,
@@ -56,11 +56,19 @@ const initDb = () => {
           types: pokemon.types
         }).then(pokemon => console.log(pokemon.toJSON()))
       })
-    } 
+    
     //Password hashing
     bcrypt.hash('pikachu', 10) //Args : (password, hashTime)
     .then(hash =>User.create({username : 'pikachu', password: hash})) //Recuperate hashed password and push it to db
     .then(user => console.log(user.toJSON()))
+
+    console.log("DATABASE HAVE BEEN INTIALIZED WITH SUCCESS")
+  })
+  
+} */
+
+const initDb = () => {
+  return sequelize.sync().then(_ => {
 
     console.log("DATABASE HAVE BEEN INTIALIZED WITH SUCCESS")
   })
