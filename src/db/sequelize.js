@@ -46,15 +46,18 @@ const User = UserModel(sequelize, DataTypes)
 //Adding mock pokemons to db
 const initDb = () => {
   return sequelize.sync().then(_ => {
-    pokemons.map(pokemon => {
-      Pokemon.create({
-        name: pokemon.name,
-        hp: pokemon.hp,
-        cp: pokemon.cp,
-        picture: pokemon.picture,
-        types: pokemon.types
-      }).then(pokemon => console.log(pokemon.toJSON()))
-    })//Password hashing
+    if(process.env.NODE_ENV === 'developement'){
+      pokemons.map(pokemon => {
+        Pokemon.create({
+          name: pokemon.name,
+          hp: pokemon.hp,
+          cp: pokemon.cp,
+          picture: pokemon.picture,
+          types: pokemon.types
+        }).then(pokemon => console.log(pokemon.toJSON()))
+      })
+    } 
+    //Password hashing
     bcrypt.hash('pikachu', 10) //Args : (password, hashTime)
     .then(hash =>User.create({username : 'pikachu', password: hash})) //Recuperate hashed password and push it to db
     .then(user => console.log(user.toJSON()))
