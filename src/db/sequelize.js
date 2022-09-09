@@ -44,8 +44,14 @@ const Pokemon = PokemonModel(sequelize, DataTypes)
 const User = UserModel(sequelize, DataTypes)
   
 //Adding mock pokemons to db
-/* const initDb = () => {
-  return sequelize.sync({force:true}).then(_ => {
+
+
+const initDb = () => {
+  if(process.env.NODE_ENV === 'production'){
+    return sequelize.sync().then(_ => {
+    console.log("DATABASE HAVE BEEN INTIALIZED WITH SUCCESS (PROD ENVIRONNEMENT)")
+  })} else{
+    return sequelize.sync({force:true}).then(_ => {
     
       pokemons.map(pokemon => {
         Pokemon.create({
@@ -62,16 +68,11 @@ const User = UserModel(sequelize, DataTypes)
     .then(hash =>User.create({username : 'pikachu', password: hash})) //Recuperate hashed password and push it to db
     .then(user => console.log(user.toJSON()))
 
-    console.log("DATABASE HAVE BEEN INTIALIZED WITH SUCCESS")
+    console.log("DATABASE HAVE BEEN INTIALIZED WITH SUCCESS (DEV ENVIRONNEMENT)")
   })
+
+  }
   
-} */
-
-const initDb = () => {
-  return sequelize.sync().then(_ => {
-
-    console.log("DATABASE HAVE BEEN INTIALIZED WITH SUCCESS")
-  })
   
 }
 
