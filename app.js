@@ -20,7 +20,7 @@ app
 sequelize.initDb()
 
 app.get('/', (req,res)=>{
-  res.json('HELLO, TEST!')
+  res.json('HELLO, THIS IS THE POKEDEX REST API. TO TEST THE ROOTS, PLEASE AUTHENTIFY WITH /login')
 })
 
 
