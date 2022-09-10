@@ -15,7 +15,7 @@ app
 .use(favicon(__dirname +'/favicon.ico'))
 .use(bodyParser.json())
 .use(cors({
-  origin: 'http://yourapp.com/'
+  origin: 'http://localhost:3000/'
 }))
 
 //Initialize db
