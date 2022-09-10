@@ -14,9 +14,7 @@ const port = process.env.PORT || 3000
 app
 .use(favicon(__dirname +'/favicon.ico'))
 .use(bodyParser.json())
-.use(cors({
-  origin: 'http://localhost:3000/'
-}))
+.use(cors())
 
 //Initialize db
 sequelize.initDb()
