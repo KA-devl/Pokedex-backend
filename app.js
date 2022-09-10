@@ -12,9 +12,6 @@ const port = process.env.PORT || 3000
 const corsOptions ={
   origin:'*', 
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials:true,            //access-control-allow-credentials:true
-  exposedHeaders : 'Content-Type,Authorization',
-  optionSuccessStatus:200,
 }
 
 //Middleware use
