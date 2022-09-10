@@ -9,22 +9,14 @@ const sequelize = require ('./src/db/sequelize')
 const app = express()
 const port = process.env.PORT || 3000
 
-const allowCrossDomain = function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', req.headers.origin);
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  res.header("Access-Control-Allow-Credentials", "true");
-  // console.log("cors");
-  // console.log(req.headers.origin);
-  next();
-}
+
 
 
 //Middleware use
 app
 .use(favicon(__dirname +'/favicon.ico'))
 .use(bodyParser.json())
-.use(cors(allowCrossDomain));
+.use(cors());
 
 //Initialize db
 sequelize.initDb()
