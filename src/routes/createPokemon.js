@@ -7,7 +7,6 @@ module.exports = (app) => {
     Pokemon.create(req.body)
       .then(pokemon => {
         const message = `Le pokémon ${req.body.name} a bien été crée.`
-        res.set('Access-Control-Allow-Origin', '*');
         res.json({ message, data: pokemon })
       })
       .catch(error => {
