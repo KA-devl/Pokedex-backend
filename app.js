@@ -10,7 +10,6 @@ const app = express()
 const port = process.env.PORT || 3000
 
 
-
 //Middleware use
 app
 .use(favicon(__dirname +'/favicon.ico'))
