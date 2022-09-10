@@ -24,7 +24,7 @@ const allowCrossDomain = function(req, res, next) {
 app
 .use(favicon(__dirname +'/favicon.ico'))
 .use(bodyParser.json())
-.use(allowCrossDomain);
+.use(cors(allowCrossDomain));
 
 //Initialize db
 sequelize.initDb()
