@@ -9,7 +9,14 @@ module.exports = (app) => {
         const message = `The username ${user.username} already exists. Please choose a different username`
         return res.status(409).json({message})
       }
-      bcrypt.hash(req.body.password, 10)
+      //Use regex to check validate password
+      let reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/
+      if(reg.test(req.body.password) == false){ //if password is invalid, throw error
+        const message = `The password Minimum 6 characters, at least one letter and one number.`
+        return res.status(409).json({message})
+      }
+
+      bcrypt.hash(req.body.password, 10) //if everything is correct, hash the password and push it safely to the db
         .then(hash => User.create({username : req.body.username, password:hash}))
         .then(user => { 
         const message = 'The user have been created with success'
