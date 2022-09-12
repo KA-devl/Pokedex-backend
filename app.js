@@ -15,7 +15,6 @@ app
 
 //Initialize db
 sequelize.initDb();
-//test
 
 app.get("/", (req, res) => {
   res.json(
