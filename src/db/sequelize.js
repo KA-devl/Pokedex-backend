@@ -7,14 +7,6 @@ const bcrypt = require('bcrypt')
   
 //Configurer database
     if(process.env.NODE_ENV === 'production'){
- /*  sequelize = new Sequelize('kk8u5y871hfoaw9y', 't09tvm6qofrtvc7h', 'ryujse9ftf40wpqn', {
-    host: 'klbcedmmqp7w17ik.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-    dialect: 'mariadb',
-    dialectOptions: {
-      timezone: 'Etc/GMT-2',
-    },
-    logging: true
-  }) */
   sequelize = new Sequelize('pokedextest', 'pokedexadmin', 'Pokedex1999', {
     host: 'pokedextest1.database.windows.net',
     dialect: 'mssql',
@@ -45,7 +37,6 @@ const User = UserModel(sequelize, DataTypes)
   
 //Adding mock pokemons to db
 
-
 const initDb = () => {
   if(process.env.NODE_ENV === 'production'){
     return sequelize.sync().then(_ => {
@@ -72,7 +63,6 @@ const initDb = () => {
   })
 
   }
-  
   
 }
 

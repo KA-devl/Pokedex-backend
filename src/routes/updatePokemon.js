@@ -12,10 +12,10 @@ module.exports = (app) => {
       Pokemon.findByPk(id)
       .then(pokemon => {
         if(pokemon === null){
-          const message = 'Le pokemon demander nexiste pas'
+          const message = 'The pokemon asked does not exist.'
           return res.status(404).json({message})
         }
-        const message = `Le pokemon ${pokemon.name} a bien ete modifier`
+        const message = `The pokemon ${pokemon.name} have been successfully modified.`
         res.json({message, data: pokemon})
       })
     })
@@ -27,7 +27,7 @@ module.exports = (app) => {
         res.status(400).json({message:error.message, data:error})
       }
       else
-      {const message = 'Le pokemon na pas pu etre modifier.'
+      {const message = 'Unable to modify the pokemon. Please try again later.'
       res.status(500).json({message, data: error})}
     })
   })

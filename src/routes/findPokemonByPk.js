@@ -7,14 +7,14 @@ module.exports = (app) => {
     Pokemon.findByPk(id)
     .then(pokemon =>{
       if(pokemon === null){
-        const message = 'Le pokemon demander nexiste pas.'
+        const message = 'The pokemon asked does not exist.'
         return res.status(404).json({message})
       }
-      const message = `Le pokemon a bien été récupérée.`
+      const message = `The pokemon have been retrieved successfully.`
       res.json({ message, data: pokemon })
     })
     .catch(error => {
-      const message = 'Le pokemon na pas pu etre recuperer'
+      const message = 'The pokemon was not retreived. Please try again later.'
       res.status(500).json({message, data:error})
     })
   })
