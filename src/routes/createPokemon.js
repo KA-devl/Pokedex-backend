@@ -6,7 +6,7 @@ module.exports = (app) => {
   app.post('/api/pokemons', auth,(req, res) => {
     Pokemon.create(req.body)
       .then(pokemon => {
-        const message = `Le pokémon ${req.body.name} a bien été crée.`
+        const message = `The pokemon ${req.body.name} has been created.`
         res.json({ message, data: pokemon })
       })
       .catch(error => {
@@ -17,7 +17,7 @@ module.exports = (app) => {
           res.status(400).json({message:error.message, data:error})
         }
         else
-        {const message = 'Le pokemon na pas pu etre recuperer.'
+        {const message = 'Sorry, we are not able to recuperate the pokemon'
         res.status(500).json({message, data: error})}
       })
   })

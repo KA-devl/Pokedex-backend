@@ -31,10 +31,11 @@ require('./src/routes/createPokemon')(app)
 require('./src/routes/updatePokemon')(app)
 require('./src/routes/deletePokemon')(app)
 require('./src/routes/login')(app)
+require('./src/routes/createUser')(app)
 
 //Error 404 gestion
 app.use(({res}) => {
-  const message = 'Impossible de trouver la ressource demandee. Essayez un URL different '
+  const message = 'We are unable to find the ressource you are asking for. Try again with a different URL '
   res.status(404).json({message})
 })
 
